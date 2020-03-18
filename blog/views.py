@@ -23,3 +23,9 @@ def detail(request, pk):
     m = re.search(r'<div class="toc">\s*<ul>(.*)</ul>\s*</div>', md.toc, re.S)
     post.toc = m.group(1) if m is not None else ''
     return render(request, 'blog/detail.html', context={'post': post})
+
+def archive(request, year, month):
+    post_list = Post.objects.filter(created_time__year=year,
+                                    created_time__month=month,
+                                    ).order_by('-created_time')
+    return render(request, 'blog/index.html', context={'post_list': post_list})
