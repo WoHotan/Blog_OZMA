@@ -84,6 +84,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = "文章"
         verbose_name_plural = verbose_name
+        ordering = ['-created_time']
 
     def __str__(self):
         return self.title
@@ -106,5 +107,5 @@ class Post(models.Model):
         # strip_tags 去掉 HTML 文本的全部 HTML 标签
         # 从文本摘取前 54 个字符赋给 excerpt
         self.excerpt = strip_tags(md.convert(self.body))[:54]
-        
+
         super().save(*args, **kwargs)
